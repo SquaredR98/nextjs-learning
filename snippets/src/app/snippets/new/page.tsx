@@ -1,28 +1,15 @@
+"use client";
+
 import React from "react";
-import { db } from "@/db";
-import { redirect } from "next/navigation";
+import { useFormState } from "react-dom";
+import { createSnippet } from "../../../actions";
 
 export default function CreateSnippet() {
-  async function createSnippet(formData: FormData) {
-    // Adding following string in any function will let nextjs know
-    // that the code can only be run on server also known as
-    // Server actions
-    "use server";
-    // Check the user's inputs and make sure they are valid
-    const title: string = formData.get("title") as string;
-    const code: string = formData.get("code") as string;
-    // Create a new record in the database
-    const snippet = await db.snippets.create({
-      data: { title, code },
-    });
-    console.log(console.log(snippet));
-    // Redirect user back to the root route
-    redirect('/');
-  }
+  const [formState, action] = useFormState(createSnippet, { message: "" });
 
   return (
     <div className="w-11/12 md:w-1/2 lg:w-1/3 my-16 mx-auto">
-      <form className="border rounded p-4" action={createSnippet}>
+      <form className="border rounded p-4" action={action}>
         <h3 className="font-bold text-3xl my-2">Create a new Snippet</h3>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col items-start gap-2">
@@ -46,6 +33,11 @@ export default function CreateSnippet() {
               id="code"
             />
           </div>
+          {formState.message.length !== 0 ? (
+            <div className="border border-red-800 bg-red-300 rounded py-1 px-2 text-red-900 text-sm">
+              {formState.message}
+            </div>
+          ) : null}
           <button type="submit" className="rounded bg-blue-200 p-2">
             Submit
           </button>
