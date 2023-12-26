@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fira_Sans_Condensed, Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
+import Header from "../components/Header";
 
 const firaSansCondensed = Fira_Sans_Condensed({
   subsets: ["latin"],
@@ -21,7 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={firaSansCondensed.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          <div className="w-11/12 md:w-10/12 lg:w-9/12 mx-auto">
+          {children}
+          </div>
+        </Providers>
       </body>
     </html>
   );
