@@ -12,10 +12,10 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import React from "react";
-import { createTopic } from "../../actions";
+import { createTopic } from "@/actions";
 import { useFormState, useFormStatus } from "react-dom";
 
-export default function CreateTopicForm() {
+export default function CreatePostForm() {
   const [formState, action] = useFormState(createTopic, {
     error: false,
     errors: {},
@@ -24,22 +24,26 @@ export default function CreateTopicForm() {
   const { pending } = useFormStatus();
   return (
     <>
-      <Button radius="sm" onPress={onOpen} className="bg-blue-200 w-full hover:shadow-md">
-        Create New Topic
+      <Button
+        radius="sm"
+        onPress={onOpen}
+        className="bg-blue-200 w-full hover:shadow-md"
+      >
+        Create New Post
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Create a New Topic
+                Create a New Post
               </ModalHeader>
               <form action={action}>
                 <ModalBody>
                   <Input
-                    name="name"
+                    name="title"
                     autoFocus
-                    label="Topic"
+                    label="Title"
                     placeholder=""
                     variant="flat"
                     className="mb-4"
@@ -51,8 +55,8 @@ export default function CreateTopicForm() {
                     disabled={pending}
                   />
                   <Textarea
-                    name="description"
-                    label="Describe"
+                    name="content"
+                    label="Content"
                     placeholder=""
                     type="text"
                     variant="flat"

@@ -1,5 +1,7 @@
 import { auth } from "@/auth";
 import CreateTopicForm from "@/components/topics/CreateTopicForm";
+import TopicList from "../components/topics/TopicList";
+import { Divider } from "@nextui-org/react";
 
 export default async function Home() {
   const session = await auth();
@@ -9,8 +11,11 @@ export default async function Home() {
       <div className="col-span-3">
         <h1 className="text-xl font-bold">Top Post</h1>
       </div>
-      <div className="col-span-1">
+      <div className="border shadow-lg py-3 px-2 rounded-lg">
         <CreateTopicForm />
+        <Divider className="my-2" />
+        <h1 className="text-xl font-medium mb-2">Topics</h1>
+        <TopicList />
       </div>
     </div>
   );
