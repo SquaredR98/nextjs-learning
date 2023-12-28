@@ -25,7 +25,7 @@ export default function HeaderAuth() {
       <Popover radius="sm" placement="bottom">
         <PopoverTrigger>
           <User
-            className="bg-blue-200/60 hover:cursor-pointer hover:bg-blue-200 p-1 px-2 rounded"
+            className=" hover:cursor-pointer p-1 px-2 rounded"
             name={user.name}
             avatarProps={{ src: user.image || "" }}
           >

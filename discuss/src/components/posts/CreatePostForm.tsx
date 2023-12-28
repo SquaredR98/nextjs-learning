@@ -12,11 +12,15 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import React from "react";
-import { createTopic } from "@/actions";
+import { createPost } from "@/actions";
 import { useFormState, useFormStatus } from "react-dom";
 
-export default function CreatePostForm() {
-  const [formState, action] = useFormState(createTopic, {
+interface ICreatePostFormProps {
+  slug: string;
+}
+
+export default function CreatePostForm({ slug }: ICreatePostFormProps) {
+  const [formState, action] = useFormState(createPost.bind(null, slug), {
     error: false,
     errors: {},
   });
@@ -48,7 +52,7 @@ export default function CreatePostForm() {
                     variant="flat"
                     className="mb-4"
                     isInvalid={formState.error}
-                    errorMessage={formState.errors.name?.join(", ")}
+                    errorMessage={formState.errors.title?.join(", ")}
                     onChange={() => {
                       formState.error = false;
                     }}
@@ -61,7 +65,7 @@ export default function CreatePostForm() {
                     type="text"
                     variant="flat"
                     isInvalid={formState.error}
-                    errorMessage={formState.errors.description?.join(", ")}
+                    errorMessage={formState.errors.content?.join(", ")}
                     disabled={pending}
                   />
                   {formState.errors._form ? (
